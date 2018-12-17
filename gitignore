@@ -1,1 +1,6 @@
-“*.sqlite3n*.pycn.~c9n__pycache__/”
+*.sqlite3n
+*.pyc
+.~c9
+__pycache__/
+env.py
+
