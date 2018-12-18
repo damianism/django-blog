@@ -50,17 +50,19 @@ def create_or_edit_post(request, pk=None):
     #     post = None
     # as shown above if pk is not given set post to None
     post = get_object_or_404(Post, pk=pk) if pk else None
+    # print("post = ", post)
     
     if request.method == "POST":
         # https://docs.djangoproject.com/en/2.1/topics/http/file-uploads/
         # request.FILES:    a dictionary containing a key for each FileField (or ImageField, or other FileField subclass) in the form. 
         #                   So the data from the above form would be accessible as request.FILES['file'].
-        # instance? why? BlogPostForm is already based on the Post model
+        # print("POST: post = ", post)
         form = BlogPostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()  # doesnt this save the form onject in the db? why is it equating it to post? post doesnt even get used after that!
             return redirect(post_detail, post.pk)
     else:
+        # print("GET: post = ", post)
         form = BlogPostForm(instance=post)
         
     return render(request, "blogpostform.html", {"form":form})
